@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_tracker/widgets/left_drawer.dart';
+import 'package:mental_health_tracker/screens/moodentry_form.dart';
+import 'package:mental_health_tracker/widgets/mood_card.dart';
 
 class ItemHomepage {
   final String name; // Nama tombol
@@ -46,8 +49,29 @@ class ItemCard extends StatelessWidget {
       elevation: 2.0,
       child: InkWell(
         onTap: () {
-          // Logika untuk menanggapi klik
-          print("${item.name} pressed");
+          // Memunculkan SnackBar ketika diklik
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(SnackBar(
+              content: Text("Kamu telah menekan tombol ${item.name}!"),
+            ));
+
+          // Navigate ke route yang sesuai (tergantung jenis tombol)
+          if (item.name == "Tambah Mood") {
+            // Menggunakan Navigator.push untuk menavigasi ke halaman MoodEntryFormPage
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const MoodEntryFormPage(),
+              ),
+            );
+          } else if (item.name == "Lihat Mood") {
+            // Navigasi ke halaman lain untuk melihat mood (misalnya, halaman melihat mood)
+            // Navigator.push(context, MaterialPageRoute(builder: (context) => const LihatMoodPage()));
+          } else if (item.name == "Logout") {
+            // Implementasi untuk logout
+            // Logika logout bisa ditambahkan di sini
+          }
         },
         child: Container(
           padding: const EdgeInsets.all(16.0),
@@ -96,9 +120,11 @@ class MyHomePage extends StatelessWidget {
             fontWeight: FontWeight.bold,
           ),
         ),
+        iconTheme: const IconThemeData(color: Colors.white),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
         backgroundColor: Theme.of(context).colorScheme.primary,
       ),
+      drawer: const LeftDrawer(), // Pindahkan drawer ke dalam Scaffold
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
