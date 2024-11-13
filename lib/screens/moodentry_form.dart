@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mental_health_tracker/widgets/left_drawer.dart';
+//import 'package:mental_health_tracker/widgets/left_drawer.dart';
 
 class MoodEntryFormPage extends StatefulWidget {
   const MoodEntryFormPage({super.key});
@@ -16,6 +16,7 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
 
   @override
   Widget build(BuildContext context) {
+    final request = context.watch<CookieRequest>();
     return Scaffold(
       appBar: AppBar(
         title: const Center(
@@ -110,7 +111,7 @@ class _MoodEntryFormPageState extends State<MoodEntryFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(
+                      backgroundColor: WidgetStateProperty.all(
                           Theme.of(context).colorScheme.primary),
                     ),
                     onPressed: () {
